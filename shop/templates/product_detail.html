@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row">
+    <nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'base' %}">Главная</a></li>
+    <li class="breadcrumb-item"><a href="#"></a>{{ product.category.name }}</li>
+    <li class="breadcrumb-item active" aria-current="page">{{ product.title }}</li>
+  </ol>
+</nav>
+    <div class="col-md-4">
+        <img src="{{ product.image.url }}" class="img-fluid">
+    </div>
+    <div class="col-md-8">
+        <h1>{{ product.title }}</h1>
+        <p>Цена: {{ product.price }} руб.</p>
+        <p>Описание: {{ product.description }}</p>
+        <hr>
+        <a href="{% url 'add_to_cart' ct_model=ct_model slug=product.slug%}"><button class="btn btn-danger">Добавить в корзину</button> </a>
+
+        <p>Характеристики: </p>
+        {% if product.category.slug == 'notebooks'%}
+            {% include 'notebook_specification.html' %}
+        {% else %}
+            {% include 'smartphone_specification.html' %}
+        {% endif %}
+    </div>
+
+</div>
+
+
+{% endblock content %}
+
